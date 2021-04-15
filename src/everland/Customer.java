@@ -9,8 +9,10 @@ public class Customer {
 	private int discountType;
 	
 	public Customer(String date, int ticketType, int age, int orderCount, int price, int discountType) {
+		this.date = date;
 		this.ticketType = ticketType;
 		this.age = age;
+		this.orderCount = orderCount;
 		this.price = price;
 		this.discountType = discountType; 
 	}
@@ -57,11 +59,11 @@ public class Customer {
 		String dType = "";
 		if (discountType == 1) {
 			dType = "없음";
-		} else if (discountType == 1) {
+		} else if (discountType == 2) {
 			dType = "장애인";
-		} else if (discountType == 1) {
+		} else if (discountType == 3) {
 			dType = "국가유공자";
-		} else if (discountType == 1) {
+		} else if (discountType == 4) {
 			dType = "다자녀";
 		} else {
 			dType = "임산부";

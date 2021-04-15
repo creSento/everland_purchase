@@ -101,36 +101,12 @@ public class TicketClass {
 		return disPrice * orderCount;
 	}
 	
-	public void saveOrderList(int ticket, int age, int orderCount, int totalPrice, 
-			int discountType, int cusNo, ArrayList<String> orderList) {
-		String data = String.format("%d,%d,%d,%d,%d", ticket, ageGroup(age), orderCount, totalPrice, discountType);
-		orderList.add(cusNo, data);
+	public void saveOrderList(int ticket, int age, int orderCount, int resultPrice, 
+			int discountType, ArrayList<Customer> orderList) {
+		Date today = new Date(); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String date = sdf.format(today);
+		Customer cus = new Customer(date, ticket, ageGroup(age), orderCount, resultPrice, discountType);
+		orderList.add(cus);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
