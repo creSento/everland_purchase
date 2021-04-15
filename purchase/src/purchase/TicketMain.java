@@ -1,4 +1,4 @@
-package everland;
+package purchase;
 
 import java.io.IOException;
 import java.util.ArrayList;

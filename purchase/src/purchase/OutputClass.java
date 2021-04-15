@@ -1,4 +1,4 @@
-package everland;
+package purchase;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -25,14 +25,55 @@ public class OutputClass {
 		Customer cus = null;
 		for (int i = 0; i < orderList.size(); i++) {
 			cus = orderList.get(i);
-			System.out.printf("%s\t", cus.getTicketType());
-			System.out.printf("%s\t", cus.getAge());
+			switch (cus.getTicketType()) {
+			case 1:
+				System.out.printf("%s\t", "주간권");
+				break;
+			case 2:
+				System.out.printf("%s\t", "야간권");
+				break;
+			default:
+				break;
+			}
+			switch (cus.getAge()) {
+			case 1:
+				System.out.printf("%s\t","유아");
+				break;
+			case 2:
+				System.out.printf("%s\t","소인");
+				break;
+			case 3:
+				System.out.printf("%s\t","청소년");
+				break;
+			case 4:
+				System.out.printf("%s\t","어른");
+				break;
+			case 5:
+				System.out.printf("%s\t","노인");
+				break;
+			default:
+				break;
+			}
 			System.out.printf("X %3d\t", cus.getOrderCount());
 			System.out.printf("%8d원\t", cus.getPrice());
-			if (cus.getDiscountType().equals("없음")) {
-				System.out.printf("우대적용 %s\n", cus.getDiscountType());
-			} else {
-				System.out.printf("%s 우대적용\n", cus.getDiscountType());
+			switch (cus.getDiscountType()) {
+			case 1:
+				System.out.printf("%s\n", "우대적용 없음");
+				break;
+			case 2:
+				System.out.printf("%s\n", "장애인 우대적용");
+				break;
+			case 3:
+				System.out.printf("%s\n", " 국가유공자 우대적용");
+				break;
+			case 4:
+				System.out.printf("%s\n", "다자녀 우대적용");
+				break;
+			case 5:
+				System.out.printf("%s\n", "임산부 우대적용");
+				break;
+			default:
+				break;
 			}
 			writeFile(cus);
 		}

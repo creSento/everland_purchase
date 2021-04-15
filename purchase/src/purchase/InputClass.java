@@ -1,4 +1,4 @@
-package everland;
+package purchase;
 
 import java.util.Scanner;
 
@@ -49,7 +49,7 @@ public class InputClass {
 		while (true) {
 			sc = new Scanner(System.in);
 			orderCount = sc.nextInt();
-			if (orderCount >= Const.MIN_COUNT && orderCount <= Const.MAX_COUNT) {
+			if (orderCount >= ConstP.MIN_COUNT && orderCount <= ConstP.MAX_COUNT) {
 				break;
 			} else {
 				OutputClass.errMsg();
