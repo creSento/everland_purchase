@@ -1,6 +1,6 @@
-package everland;
+package purchase;
 
-public class Const {
+public class ConstP {
 	// price
 	public static final int BABY_PRICE = 0;
 	public static final int CHILD_DAY_PRICE = 44000;

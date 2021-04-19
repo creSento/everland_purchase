@@ -1,4 +1,4 @@
-package everland;
+package purchase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,46 +30,46 @@ public class TicketClass {
 	}
 	
 	public int ageGroup(int age) {
-		if (age < Const.MIN_CHILD) {
-			return Const.BABY;
-		} else if (age >= Const.MIN_CHILD && age <= Const.MAX_CHILD) {
-			return Const.CHILD;
-		} else if (age >= Const.MIN_TEEN && age <= Const.MAX_TEEN) {
-			return Const.TEEN;
-		} else if (age >= Const.MIN_ADULT && age <= Const.MAX_ADULT) {
-			return Const.ADULT;
+		if (age < ConstP.MIN_CHILD) {
+			return ConstP.BABY;
+		} else if (age >= ConstP.MIN_CHILD && age <= ConstP.MAX_CHILD) {
+			return ConstP.CHILD;
+		} else if (age >= ConstP.MIN_TEEN && age <= ConstP.MAX_TEEN) {
+			return ConstP.TEEN;
+		} else if (age >= ConstP.MIN_ADULT && age <= ConstP.MAX_ADULT) {
+			return ConstP.ADULT;
 		} else {
-			return Const.OLD;
+			return ConstP.OLD;
 		}
 	}
 	
 	public int calRawPrice(int age, int ticket) {
 		int rawPrice = 0;
-		if (ageGroup(age) == Const.BABY) {
-			rawPrice = Const.BABY_PRICE;
-		} else if (ageGroup(age) == Const.CHILD) {
+		if (ageGroup(age) == ConstP.BABY) {
+			rawPrice = ConstP.BABY_PRICE;
+		} else if (ageGroup(age) == ConstP.CHILD) {
 			if (ticket == 1) {
-				rawPrice = Const.CHILD_DAY_PRICE;
+				rawPrice = ConstP.CHILD_DAY_PRICE;
 			} else {
-				rawPrice = Const.CHILD_NIGHT_PRICE;
+				rawPrice = ConstP.CHILD_NIGHT_PRICE;
 			}
-		} else if (ageGroup(age) == Const.TEEN) {
+		} else if (ageGroup(age) == ConstP.TEEN) {
 			if (ticket == 1) {
-				rawPrice = Const.TEEN_DAY_PRICE;
+				rawPrice = ConstP.TEEN_DAY_PRICE;
 			} else {
-				rawPrice = Const.TEEN_NIGHT_PRICE;
+				rawPrice = ConstP.TEEN_NIGHT_PRICE;
 			}
-		} else if (ageGroup(age) == Const.ADULT) {
+		} else if (ageGroup(age) == ConstP.ADULT) {
 			if (ticket == 1) {
-				rawPrice = Const.ADULT_DAY_PRICE;
+				rawPrice = ConstP.ADULT_DAY_PRICE;
 			} else {
-				rawPrice = Const.ADULT_NIGHT_PRICE;
+				rawPrice = ConstP.ADULT_NIGHT_PRICE;
 			}
 		} else {
 			if (ticket == 1) {
-				rawPrice = Const.OLD_DAY_PRICE;
+				rawPrice = ConstP.OLD_DAY_PRICE;
 			} else {
-				rawPrice = Const.OLD_NIGHT_PRICE;
+				rawPrice = ConstP.OLD_NIGHT_PRICE;
 			}
 		}
 		return rawPrice;
@@ -79,16 +79,16 @@ public class TicketClass {
 		double disPrice = 0;
 		switch (discountType) {
 		case 2:
-			disPrice = rawPrice * Const.DISABLE_DISCOUNT_RATE;
+			disPrice = rawPrice * ConstP.DISABLE_DISCOUNT_RATE;
 			break;
 		case 3:
-			disPrice = rawPrice * Const.MERIT_DISCOUNT_RATE;
+			disPrice = rawPrice * ConstP.MERIT_DISCOUNT_RATE;
 			break;
 		case 4:
-			disPrice = rawPrice * Const.MULTICHILD_DISCOUNT_RATE;
+			disPrice = rawPrice * ConstP.MULTICHILD_DISCOUNT_RATE;
 			break;
 		case 5:
-			disPrice = rawPrice * Const.PREGNANT_DISCOUNT_RATE;
+			disPrice = rawPrice * ConstP.PREGNANT_DISCOUNT_RATE;
 			break;
 		default:
 			disPrice = rawPrice;
@@ -101,36 +101,12 @@ public class TicketClass {
 		return disPrice * orderCount;
 	}
 	
-	public void saveOrderList(int ticket, int age, int orderCount, int totalPrice, 
-			int discountType, int cusNo, ArrayList<String> orderList) {
-		String data = String.format("%d,%d,%d,%d,%d", ticket, ageGroup(age), orderCount, totalPrice, discountType);
-		orderList.add(cusNo, data);
+	public void saveOrderList(int ticket, int age, int orderCount, int resultPrice, 
+			int discountType, ArrayList<Customer> orderList) {
+		Date today = new Date(); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String date = sdf.format(today);
+		Customer cus = new Customer(date, ticket, ageGroup(age), orderCount, resultPrice, discountType);
+		orderList.add(cus);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

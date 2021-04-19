@@ -1,4 +1,4 @@
-package everland;
+package purchase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class TicketMain {
 		TicketClass tic = new TicketClass();
 		Scanner sc;
 		do {
-			ArrayList<String> orderList = new ArrayList<String>();
+			ArrayList<Customer> orderList = new ArrayList<Customer>();
 			int ticket = 0;
 			String idNumber = "";
 			int orderCount = 0;
@@ -36,7 +36,7 @@ public class TicketMain {
 				disPrice = tic.calDiscount(rawPrice, discountType);
 				resultPrice = tic.calTotalPrice(disPrice, orderCount);
 				// save order
-				tic.saveOrderList(ticket, age, orderCount, resultPrice, discountType, cusNo, orderList);
+				tic.saveOrderList(ticket, age, orderCount, resultPrice, discountType, orderList);
 				// add total price
 				totalPrice += resultPrice;
 				// print price
