@@ -34,7 +34,7 @@ public class InputClass {
 		while (true) {
 			sc = new Scanner(System.in);
 			idNumber = sc.nextLine();
-			if (idNumber.length() == 13) {
+			if (idNumber.length() == 13 && ((int) idNumber.charAt(6) >= 49 && (int) idNumber.charAt(6) <= 52)) {
 				break;
 			} else {
 				OutputClass.errMsg();

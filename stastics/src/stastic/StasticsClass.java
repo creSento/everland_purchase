@@ -31,13 +31,11 @@ public class StasticsClass {
 		for(CustomerOrder cus : datalist) {
 			if (cus.getTicketType() == ConstS.DAY) {
 				type = ConstS.DAY;
-				sales[type][0] += cus.getOrderCount();
-				sales[type][6] += cus.getPrice();
 			} else {
 				type = ConstS.NIGHT;
-				sales[type][0] += cus.getOrderCount();
-				sales[type][6] += cus.getPrice();
 			}
+			sales[type][ConstS.TOTAL_COUNT] += cus.getOrderCount();
+			sales[type][ConstS.TOTAL_SALES] += cus.getPrice();
 			switch (cus.getAge()) {
 			case ConstS.BABY:
 				sales[type][ConstS.BABY] += cus.getOrderCount();
@@ -64,7 +62,7 @@ public class StasticsClass {
 	public int[] discountType() {
 		int[] sales = new int[6];
 		for (CustomerOrder cus : datalist) {
-			sales[0] += cus.getOrderCount();
+			sales[ConstS.TOTAL_COUNT] += cus.getOrderCount();
 			switch (cus.getDiscountType()) {
 			case ConstS.NONE:
 				sales[ConstS.NONE] += cus.getOrderCount();

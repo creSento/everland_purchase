@@ -9,6 +9,10 @@ public class ConstS {
 	public static final int PRICE = 4;
 	public static final int DISCOUNT = 5;
 	
+	// array index
+	public static final int TOTAL_COUNT = 0;
+	public static final int TOTAL_SALES = 6;
+	
 	// discount
 	public static final int NONE = 1;
 	public static final int DISABLE = 2;
@@ -19,14 +23,6 @@ public class ConstS {
 	// ticket type
 	public static final int DAY = 1;
 	public static final int NIGHT = 2;
-	
-	public static final int MIN_BABY = 1;
-	public static final int MIN_CHILD = 3;
-	public static final int MAX_CHILD = 12;
-	public static final int MIN_TEEN = 13;
-	public static final int MAX_TEEN = 18;
-	public static final int MIN_ADULT = 9;
-	public static final int MAX_ADULT = 64;
 	
 	// age group
 	public static final int BABY = 1;	// 유아

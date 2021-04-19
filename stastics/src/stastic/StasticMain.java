@@ -3,26 +3,32 @@ package stastic;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
-public class Test {
+public class StasticMain {
 
 	public static void main(String[] args) throws IOException {
-		ArrayList<CustomerOrder> list = new ArrayList<CustomerOrder>();
 		ReadFileClass read = new ReadFileClass();
-		list = read.readAll();
-
+		ArrayList<CustomerOrder> list = read.readAll();
 		PrintFileClass print = new PrintFileClass(list);
 		StasticsClass stc = new StasticsClass(list);
-		HashMap<String, Integer> date = stc.dateSales();
-
+		
+		// print console
+		// all of list
 		print.prtAll();
-		print.prtDaySales(date);
+		// date sales 
+		HashMap<String, Integer> day = stc.dateSales();
+		print.prtDaySales(day);
+		// ticket type sales
 		int[][] ticketType = stc.ticketType();
 		print.prtTicketType(ticketType);
+		// discount type sales
 		int[] discountType = stc.discountType();
 		print.prtDiscountType(discountType);
 		
+		// write file
+		print.writeDateFile(day);
+		print.writeTicketFile(ticketType);
+		print.writeDiscountFile(discountType);
 	}
 
 }
