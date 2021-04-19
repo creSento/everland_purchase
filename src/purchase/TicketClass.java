@@ -6,6 +6,10 @@ import java.util.Date;
 
 public class TicketClass {
 	
+	/**
+	 * check customer's age
+	 * @return age
+	 */
 	public int customerAge(String idNumber) {
 		int age = 0;
 		Date today = new Date();
@@ -29,6 +33,10 @@ public class TicketClass {
 		return age;
 	}
 	
+	/**
+	 * find age group
+	 * @return ageGroup in ConstP value
+	 */
 	public int ageGroup(int age) {
 		if (age < ConstP.MIN_CHILD) {
 			return ConstP.BABY;
@@ -43,6 +51,10 @@ public class TicketClass {
 		}
 	}
 	
+	/**
+	 * get price by age group 
+	 * @return raw price before discount 
+	 */
 	public int calRawPrice(int age, int ticket) {
 		int rawPrice = 0;
 		if (ageGroup(age) == ConstP.BABY) {
@@ -75,6 +87,10 @@ public class TicketClass {
 		return rawPrice;
 	}
 	
+	/**
+	 * calculate discounted price
+	 * @return discounted price
+	 */
 	public int calDiscount(int rawPrice, int discountType) {
 		double disPrice = 0;
 		switch (discountType) {
@@ -97,10 +113,17 @@ public class TicketClass {
 		return (int) disPrice;
 	}
 	
+	/**
+	 * calculate total price
+	 * @return total price 
+	 */
 	public int calTotalPrice(int disPrice, int orderCount) {
 		return disPrice * orderCount;
 	}
 	
+	/**
+	 * save one order data to array list
+	 */
 	public void saveOrderList(int ticket, int age, int orderCount, int resultPrice, 
 			int discountType, ArrayList<Customer> orderList) {
 		Date today = new Date(); 
