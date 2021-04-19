@@ -1,4 +1,4 @@
-# everland_purchase
+# EVERLAND
 
 **Purchase package**   
 : Process that purchase tickets (ticket price is different by ticket type, age group and discount type)   
