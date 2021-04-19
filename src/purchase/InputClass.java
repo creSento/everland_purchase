@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class InputClass {
 	private Scanner sc;
 	
+	/**
+	 * @return ticket type
+	 */
 	public int inputTicket() {
 		int ticket = 0;
 		System.out.printf("\n권종을 선택하세요.\n");
@@ -27,7 +30,10 @@ public class InputClass {
 		
 		return ticket;
 	}
-	
+
+	/**
+	 * @return idNumber : to use find age group and ticket price
+	 */
 	public String inputCustomerID() {
 		String idNumber = "";
 		System.out.printf("주민등록번호를 입력하세요('-'제외)\n");
@@ -43,6 +49,9 @@ public class InputClass {
 		return idNumber;
 	}
 	
+	/**
+	 * @return amount of ticket
+	 */
 	public int inputOrderCount() {
 		int orderCount = 0;
 		System.out.printf("몇장을 주문하시겠습니까?(최대 10개)\n");
@@ -59,6 +68,9 @@ public class InputClass {
 		return orderCount;
 	}
 	
+	/**
+	 * @return discount type
+	 */
 	public int inputDiscount() {
 		int discountType = 0;
 		System.out.printf("우대사항을 선택하세요.\n");
@@ -81,6 +93,9 @@ public class InputClass {
 		return discountType;
 	}
 	
+	/**
+	 * @return 1 = continue to purchase, 2 = end
+	 */
 	public int orderContinue() {
 		int isContinue = 0;
 		System.out.printf("계속 발권 하시겠습니까?\n");

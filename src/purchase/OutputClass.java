@@ -8,17 +8,26 @@ import java.util.ArrayList;
 
 public class OutputClass {
 	private static BufferedWriter bw;
-	private static String fileName = "report.csv";
+	private static String fileName = "report.csv";	// save order list to this file
 	
+	/**
+	 * print wrong input message
+	 */
 	public static void errMsg() {
 		System.out.println("잘못 입력하셨습니다.");
 	}
 	
+	/**
+	 * print price of each order 
+	 */
 	public static void prtPrice(int totalPrice) {
 		System.out.printf("가격은 %d 원 입니다.\n", totalPrice);
 		System.out.printf("감사합니다.\n\n");
 	}
 	
+	/**
+	 * print all order list after process completed once
+	 */
 	public static void prtOrderList(int totalPrice, int cusNo, ArrayList<Customer> orderList) throws IOException {
 		System.out.printf("티켓 발권을 종료합니다. 감사합니다.\n\n");
 		System.out.printf("========================= EverLand =========================\n");
@@ -81,6 +90,9 @@ public class OutputClass {
 		System.out.printf("============================================================\n\n");
 	}
 	
+	/**
+	 * save order list to file
+	 */
 	private static void writeFile(Customer customer) throws IOException {
 		bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName, true), "utf-8"));
 		bw.append(String.format("%s,%s,%s,%d,%d,%s\n", 
