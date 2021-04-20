@@ -1,35 +1,31 @@
-package purchase;
+package statistic;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import purchase.Cons;
 /**
  * @author kopo19
- * Single Order Object
+ * Single line in report file
  */
-public class Customer {
+public class OrderLine {
 	private String date;
 	private int ticketType;
 	private int age;
 	private int orderCount;
 	private int price;
 	private int discountType;
-
+	
 	/**
-	 * Initialize object
+	 * Initialize Object
+	 * @param date
 	 * @param ticketType
 	 * @param age
 	 * @param orderCount
 	 * @param price
 	 * @param discountType
 	 */
-	public Customer(int ticketType, int age, int orderCount, int price, int discountType) {
-		Date today = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String orderDate = sdf.format(today);
-		this.date = orderDate;
+	public OrderLine(String date, int ticketType, int age, int orderCount, int price, int discountType) {
+		this.date = date;
 		this.ticketType = ticketType;
-		this.age = TicketClass.ageGroup(age);
+		this.age = age;
 		this.orderCount = orderCount;
 		this.price = price;
 		this.discountType = discountType;
@@ -64,7 +60,7 @@ public class Customer {
 	public int getAge() {
 		return age;
 	}
-	
+
 	/**
 	 * @return String age group
 	 */

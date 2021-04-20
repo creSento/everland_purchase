@@ -1,13 +1,22 @@
 package statistic;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
+import purchase.Cons;
+
+/**
+ * @author kopo19
+ * Do statistic work with report data
+ */
 public class StatisticClass {
 	// list to temporary save the file by line
-	private ArrayList<CustomerOrder> datalist;
+	private ArrayList<OrderLine> datalist;
 	
-	public StatisticClass(ArrayList<CustomerOrder> datalist) {
+	/**
+	 * @param ArrayList that created in main witch have data from file
+	 */
+	public StatisticClass(ArrayList<OrderLine> datalist) {
 		this.datalist = datalist;
 	}
 	
@@ -15,10 +24,10 @@ public class StatisticClass {
 	 * calculate sales data by day
 	 * @return hash map of each day's sales
 	 */
-	public HashMap<String, Integer> dateSales() {
-		HashMap<String, Integer> daySales = new HashMap<String, Integer>();
+	public TreeMap<String, Integer> dateSales() {
+		TreeMap<String, Integer> daySales = new TreeMap<String, Integer>();
 		String date = null;
-		for(CustomerOrder cus : datalist) {
+		for(OrderLine cus : datalist) {
 			date = String.format("%s-%s-%s", cus.getDate().substring(0, 4),
 					cus.getDate().substring(4, 6), cus.getDate().substring(6, 8));
 			if (daySales.containsKey(date)) {
@@ -37,29 +46,29 @@ public class StatisticClass {
 	public int[][] ticketType() {
 		int[][] sales = new int[3][7];
 		int type = 0;
-		for(CustomerOrder cus : datalist) {
-			if (cus.getTicketType() == ConstS.DAY) {
-				type = ConstS.DAY;
+		for(OrderLine cus : datalist) {
+			if (cus.getTicketType() == Cons.DAY) {
+				type = Cons.DAY;
 			} else {
-				type = ConstS.NIGHT;
+				type = Cons.NIGHT;
 			}
-			sales[type][ConstS.TOTAL_COUNT] += cus.getOrderCount();
-			sales[type][ConstS.TOTAL_SALES] += cus.getPrice();
+			sales[type][Cons.TOTAL_COUNT] += cus.getOrderCount();
+			sales[type][Cons.TOTAL_SALES] += cus.getPrice();
 			switch (cus.getAge()) {
-			case ConstS.BABY:
-				sales[type][ConstS.BABY] += cus.getOrderCount();
+			case Cons.BABY:
+				sales[type][Cons.BABY] += cus.getOrderCount();
 				break;
-			case ConstS.CHILD:
-				sales[type][ConstS.CHILD] += cus.getOrderCount();
+			case Cons.CHILD:
+				sales[type][Cons.CHILD] += cus.getOrderCount();
 				break;
-			case ConstS.TEEN:
-				sales[type][ConstS.TEEN] += cus.getOrderCount();
+			case Cons.TEEN:
+				sales[type][Cons.TEEN] += cus.getOrderCount();
 				break;
-			case ConstS.ADULT:
-				sales[type][ConstS.ADULT] += cus.getOrderCount();
+			case Cons.ADULT:
+				sales[type][Cons.ADULT] += cus.getOrderCount();
 				break;
-			case ConstS.OLD:
-				sales[type][ConstS.OLD] += cus.getOrderCount();
+			case Cons.OLD:
+				sales[type][Cons.OLD] += cus.getOrderCount();
 				break;
 			default:
 				break;
@@ -74,23 +83,23 @@ public class StatisticClass {
 	 */
 	public int[] discountType() {
 		int[] sales = new int[6];
-		for (CustomerOrder cus : datalist) {
-			sales[ConstS.TOTAL_COUNT] += cus.getOrderCount();
+		for (OrderLine cus : datalist) {
+			sales[Cons.TOTAL_COUNT] += cus.getOrderCount();
 			switch (cus.getDiscountType()) {
-			case ConstS.NONE:
-				sales[ConstS.NONE] += cus.getOrderCount();
+			case Cons.DISCOUNT_NONE:
+				sales[Cons.DISCOUNT_NONE] += cus.getOrderCount();
 				break;
-			case ConstS.DISABLE:
-				sales[ConstS.DISABLE] += cus.getOrderCount();
+			case Cons.DISCOUNT_DISABLE:
+				sales[Cons.DISCOUNT_DISABLE] += cus.getOrderCount();
 				break;
-			case ConstS.MERIT:
-				sales[ConstS.MERIT] += cus.getOrderCount();
+			case Cons.DISCOUNT_MERIT:
+				sales[Cons.DISCOUNT_MERIT] += cus.getOrderCount();
 				break;
-			case ConstS.MULTICHILD:
-				sales[ConstS.MULTICHILD] += cus.getOrderCount();
+			case Cons.DISCOUNT_MULTICHILD:
+				sales[Cons.DISCOUNT_MULTICHILD] += cus.getOrderCount();
 				break;
-			case ConstS.PREGNANT:
-				sales[ConstS.PREGNANT] += cus.getOrderCount();
+			case Cons.DISCOUNT_PREGNANT:
+				sales[Cons.DISCOUNT_PREGNANT] += cus.getOrderCount();
 				break;
 			default:
 				break;
@@ -99,33 +108,3 @@ public class StatisticClass {
 		return sales;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
