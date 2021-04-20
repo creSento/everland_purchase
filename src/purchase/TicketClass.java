@@ -41,7 +41,7 @@ public class TicketClass {
 	}
 	
 	/**
-	 * check customer's age
+	 * Check customer's age
 	 * @return age
 	 */
 	public int customerAge(String idNumber) {
@@ -68,7 +68,7 @@ public class TicketClass {
 	}
 	
 	/**
-	 * find age group
+	 * Find age group
 	 * @return ageGroup in Cons value
 	 */
 	public static int ageGroup(int age) {
@@ -86,7 +86,7 @@ public class TicketClass {
 	}
 	
 	/**
-	 * get price by age group 
+	 * Get price by age group 
 	 * @return raw price before discount 
 	 */
 	public int calRawPrice(int age, int ticket) {
@@ -122,7 +122,7 @@ public class TicketClass {
 	}
 	
 	/**
-	 * calculate discounted price
+	 * Calculate discounted price
 	 * @return discounted price
 	 */
 	public int calDiscount(int rawPrice, int discountType) {
@@ -148,7 +148,7 @@ public class TicketClass {
 	}
 	
 	/**
-	 * calculate total price
+	 * Calculate total price
 	 * @return total price 
 	 */
 	public int calTotalPrice(int disPrice, int orderCount) {
@@ -156,7 +156,7 @@ public class TicketClass {
 	}
 	
 	/**
-	 * save one order data to array list
+	 * Save one order data to array list
 	 */
 	public void saveOrderList(Customer customer, ArrayList<Customer> orderList) {
 		orderList.add(customer);

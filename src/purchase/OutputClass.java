@@ -16,14 +16,14 @@ public class OutputClass {
 	private static String fileName = "report.csv";	// save order list to this file
 	
 	/**
-	 * print wrong input message
+	 * Print wrong input message
 	 */
 	public static void errMsg() {
 		System.out.println("잘못 입력하셨습니다.");
 	}
 	
 	/**
-	 * print price of each order 
+	 * Print price of each order 
 	 */
 	public static void prtPrice(int totalPrice) {
 		System.out.printf("가격은 %d 원 입니다.\n", totalPrice);
@@ -31,7 +31,7 @@ public class OutputClass {
 	}
 	
 	/**
-	 * print all order list after process completed once
+	 * Print all order list after process completed once
 	 */
 	public static void prtOrderList(int totalPrice, ArrayList<Customer> orderList) throws IOException {
 		System.out.printf("티켓 발권을 종료합니다. 감사합니다.\n\n");
@@ -52,7 +52,7 @@ public class OutputClass {
 	}
 	
 	/**
-	 * save order list to file
+	 * Save order list to file by line
 	 */
 	private static void writeFile(Customer customer) throws IOException {
 		bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName, true), "utf-8"));

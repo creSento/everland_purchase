@@ -44,6 +44,7 @@ public class Customer {
 	}
 	
 	/**
+	 * Exchange Integer data to String
 	 * @return String ticket type
 	 */
 	public String getTicketTypeStr() {
@@ -66,6 +67,7 @@ public class Customer {
 	}
 	
 	/**
+	 * Exchange Integer data to String
 	 * @return String age group
 	 */
 	public String getAgeStr() {
@@ -105,6 +107,7 @@ public class Customer {
 	}
 
 	/**
+	 * Exchange Integer data to String
 	 * @return String discount type
 	 */
 	public String getDiscountTypeStr() {

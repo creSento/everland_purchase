@@ -16,6 +16,7 @@ public class ReadFileClass {
 	private String fileName = "report.csv";	// file to read
 	
 	/**
+	 * Read data from file to Array list
 	 * @return Array list that have file data
 	 */
 	public ArrayList<OrderLine> readAll() throws IOException {

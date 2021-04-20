@@ -35,7 +35,7 @@ public class PrintFileClass {
 	}
 
 	/**
-	 * print report file in console
+	 * Print report file in console
 	 */
 	public void prtAll() {
 		System.out.printf("%8s\t%s\t%s\t%s\t%s\t%s\n", 
@@ -48,7 +48,7 @@ public class PrintFileClass {
 	}
 
 	/**
-	 * print sales by day in console
+	 * Print sales by day in console
 	 */
 	public void prtDaySales(TreeMap<String, Integer> daySales) throws IOException {
 		Iterator<String> key = daySales.keySet().iterator();
@@ -62,7 +62,7 @@ public class PrintFileClass {
 	}
 
 	/**
-	 * print sales by ticket type in console
+	 * Print sales by ticket type in console
 	 */
 	public void prtTicketType(int[][] sales) {
 		System.out.printf("\n========================= 권종 별 판매현황 ========================\n");
@@ -85,7 +85,7 @@ public class PrintFileClass {
 	}
 
 	/**
-	 * print sales by discount type in console
+	 * Print sales by discount type in console
 	 */
 	public void prtDiscountType(int[] sales) {
 		System.out.printf("\n========================= 우대권 판매현황 =========================\n");
@@ -99,7 +99,7 @@ public class PrintFileClass {
 	}
 
 	/**
-	 * save the result to file : sales by day
+	 * Save the result to file : sales by day
 	 */
 	public void writeDateFile(TreeMap<String, Integer> daySales) throws IOException {
 		bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dateFile + processDate(), true), "utf-8"));
@@ -115,7 +115,7 @@ public class PrintFileClass {
 	}
 
 	/**
-	 * save the result to file : sales by ticket type
+	 * Save the result to file : sales by ticket type
 	 */
 	public void writeTicketFile(int[][] sales) throws IOException {
 		bw = new BufferedWriter(
@@ -133,7 +133,7 @@ public class PrintFileClass {
 	}
 
 	/**
-	 * save the result to file : sales by discount type
+	 * Save the result to file : sales by discount type
 	 */
 	public void writeDiscountFile(int[] sales) throws IOException {
 		bw = new BufferedWriter(
@@ -149,6 +149,7 @@ public class PrintFileClass {
 	}
 
 	/**
+	 * Make date string attach to file name
 	 * @return file write date and filename extension
 	 */
 	private static String processDate() {

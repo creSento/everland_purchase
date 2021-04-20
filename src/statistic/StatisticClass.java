@@ -14,6 +14,7 @@ public class StatisticClass {
 	private ArrayList<OrderLine> datalist;
 	
 	/**
+	 * Initialize Object
 	 * @param ArrayList that created in main witch have data from file
 	 */
 	public StatisticClass(ArrayList<OrderLine> datalist) {
@@ -21,7 +22,7 @@ public class StatisticClass {
 	}
 	
 	/**
-	 * calculate sales data by day
+	 * Calculate sales data by day
 	 * @return hash map of each day's sales
 	 */
 	public TreeMap<String, Integer> dateSales() {
@@ -40,7 +41,7 @@ public class StatisticClass {
 	}
 	
 	/**
-	 * calculate sales data by ticket type
+	 * Calculate sales data by ticket type
 	 * @return array of sales : total and by age group
 	 */
 	public int[][] ticketType() {
@@ -78,7 +79,7 @@ public class StatisticClass {
 	}
 	
 	/**
-	 * calculate sales data by discount type
+	 * Calculate sales data by discount type
 	 * @return array of sales : by discount type
 	 */
 	public int[] discountType() {

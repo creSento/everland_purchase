@@ -49,6 +49,7 @@ public class InputClass {
 	}
 	
 	/**
+	 * Input ticket type
 	 * @return ticket type
 	 */
 	public int inputTicket() {
@@ -75,6 +76,7 @@ public class InputClass {
 	}
 
 	/**
+	 * Input user Social Security number
 	 * @return idNumber : to use find age group and ticket price
 	 */
 	public String inputCustomerID() {
@@ -94,6 +96,7 @@ public class InputClass {
 	}
 	
 	/**
+	 * Input how many tickets to buy
 	 * @return amount of ticket
 	 */
 	public int inputOrderCount() {
@@ -113,6 +116,7 @@ public class InputClass {
 	}
 	
 	/**
+	 * Input discount type
 	 * @return discount type
 	 */
 	public int inputDiscount() {
@@ -138,6 +142,7 @@ public class InputClass {
 	}
 	
 	/**
+	 * Choose number keep doing single purchase process or not
 	 * @return 1 = continue to purchase, 2 = end
 	 */
 	public int orderContinue() {
@@ -159,6 +164,7 @@ public class InputClass {
 	}
 	
 	/**
+	 * Choose number keep doing program or not
 	 * @return 1 = continue program, 2 = end
 	 */
 	public int programContinue() {
