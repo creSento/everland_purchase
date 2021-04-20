@@ -1,1 +1,0 @@
-# everland_purchase
