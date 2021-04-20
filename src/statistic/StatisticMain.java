@@ -2,13 +2,13 @@ package statistic;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class StatisticMain {
 
 	public static void main(String[] args) throws IOException {
 		ReadFileClass read = new ReadFileClass();
-		ArrayList<CustomerOrder> list = read.readAll();	// array list that have file data
+		ArrayList<OrderLine> list = read.readAll();	// array list that have file data
 		PrintFileClass print = new PrintFileClass(list);
 		StatisticClass stc = new StatisticClass(list);
 		
@@ -16,7 +16,7 @@ public class StatisticMain {
 		// all of list
 		print.prtAll();
 		// date sales 
-		HashMap<String, Integer> day = stc.dateSales();
+		TreeMap<String, Integer> day = stc.dateSales();
 		print.prtDaySales(day);
 		// ticket type sales
 		int[][] ticketType = stc.ticketType();

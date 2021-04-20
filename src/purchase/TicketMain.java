@@ -7,55 +7,42 @@ import java.util.Scanner;
 public class TicketMain {
 	
 	public static void main(String[] args) throws IOException {
-		int cusNo = 0;
 		int totalPrice = 0;
+		int isContinue = 0;
 		int isExit = 0;
-		InputClass in = new InputClass();
-		TicketClass tic = new TicketClass();
-		Scanner sc;
+		ArrayList<Customer> orderList;
+		Customer customer;
+		InputClass inputData;
+		TicketClass tic;
+		
 		do {
-			ArrayList<Customer> orderList = new ArrayList<Customer>();
-			int ticket = 0;
-			String idNumber = "";
-			int orderCount = 0;
-			int discountType = 0;
-			int age = 0;
-			int rawPrice = 0;
-			int disPrice = 0;
-			int resultPrice = 0;
-			int isContinue = 0;
+			orderList = new ArrayList<Customer>();
 			while (true) {
 				// customer input
-				ticket = in.inputTicket();
-				idNumber = in.inputCustomerID();
-				orderCount = in.inputOrderCount();
-				discountType = in.inputDiscount();
+				inputData = new InputClass();
+				inputData.runInput();
 				// calculate price
-				age = tic.customerAge(idNumber);
-				rawPrice = tic.calRawPrice(age, ticket);
-				disPrice = tic.calDiscount(rawPrice, discountType);
-				resultPrice = tic.calTotalPrice(disPrice, orderCount);
-				// save order
-				tic.saveOrderList(ticket, age, orderCount, resultPrice, discountType, orderList);
+				tic = new TicketClass(inputData);
+				tic.runTicket();
+				// save one order to order list
+				customer = new Customer(inputData.getTicket(), tic.getAge(), inputData.getOrderCount(), 
+								tic.getResultPrice(), inputData.getDiscountType());
+				tic.saveOrderList(customer, orderList);
 				// add total price
-				totalPrice += resultPrice;
+				totalPrice += tic.getResultPrice();
 				// print price
-				OutputClass.prtPrice(resultPrice);
+				OutputClass.prtPrice(tic.getResultPrice());
 				// continue or not
-				isContinue = in.orderContinue();
-				if (isContinue == 2) {
+				isContinue = inputData.orderContinue();
+				if (isContinue == Cons.CLOSE) {
 					break;
 				}
-				cusNo++;
 			}
 			// print order
-			OutputClass.prtOrderList(totalPrice, cusNo, orderList);
-			// exit or not
-			System.out.printf("계속 진행(1: 새로운 주문, 2: 프로그램 종료) : ");
-			sc = new Scanner(System.in);
-			isExit = sc.nextInt();
-		} while (isExit == 1);
-		sc.close();
+			OutputClass.prtOrderList(totalPrice, orderList);
+			// exit program or not
+			isExit = inputData.programContinue();
+		} while (isExit == Cons.CONTINUE);
 	}
 
 }

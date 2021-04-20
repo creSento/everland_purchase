@@ -1,9 +1,52 @@
 package purchase;
 
 import java.util.Scanner;
-
+/**
+ * @author kopo19
+ * Get data from console
+ */
 public class InputClass {
 	private Scanner sc;
+	private int ticket;
+	private String idNumber;
+	private int orderCount;
+	private int discountType;
+	
+	/**
+	 * Initialize Object
+	 */
+	public InputClass() {
+		this.ticket = 0;
+		this.idNumber = "";
+		this.orderCount = 0;
+		this.discountType = 0;
+	}
+
+	public int getTicket() {
+		return ticket;
+	}
+
+	public String getIdNumber() {
+		return idNumber;
+	}
+
+	public int getOrderCount() {
+		return orderCount;
+	}
+
+	public int getDiscountType() {
+		return discountType;
+	}
+
+	/**
+	 * Run process method
+	 */
+	public void runInput() {
+		ticket = inputTicket();
+		idNumber = inputCustomerID();
+		orderCount = inputOrderCount();
+		discountType = inputDiscount();
+	}
 	
 	/**
 	 * @return ticket type
@@ -21,7 +64,7 @@ public class InputClass {
 				// TODO: handle exception
 				e.getStackTrace();
 			}
-			if (ticket == 1 || ticket == 2) {
+			if (ticket == Cons.DAY || ticket == Cons.NIGHT) {
 				break;
 			} else {
 				OutputClass.errMsg();
@@ -40,7 +83,8 @@ public class InputClass {
 		while (true) {
 			sc = new Scanner(System.in);
 			idNumber = sc.nextLine();
-			if (idNumber.length() == 13 && ((int) idNumber.charAt(6) >= 49 && (int) idNumber.charAt(6) <= 52)) {
+			if (idNumber.length() == 13 && 
+					((int) idNumber.charAt(6) >= 49 && (int) idNumber.charAt(6) <= 52)) {	// ASCII 1 ~ 4
 				break;
 			} else {
 				OutputClass.errMsg();
@@ -58,7 +102,7 @@ public class InputClass {
 		while (true) {
 			sc = new Scanner(System.in);
 			orderCount = sc.nextInt();
-			if (orderCount >= ConstP.MIN_COUNT && orderCount <= ConstP.MAX_COUNT) {
+			if (orderCount >= Cons.MIN_COUNT && orderCount <= Cons.MAX_COUNT) {
 				break;
 			} else {
 				OutputClass.errMsg();
@@ -83,7 +127,7 @@ public class InputClass {
 		while (true) {
 			sc = new Scanner(System.in);
 			discountType = sc.nextInt();
-			if (discountType >= 1 && discountType <= 5) {
+			if (discountType >= Cons.DISCOUNT_NONE && discountType <= Cons.DISCOUNT_PREGNANT) {
 				break;
 			} else {
 				OutputClass.errMsg();
@@ -104,7 +148,7 @@ public class InputClass {
 		while (true) {
 			sc = new Scanner(System.in);
 			isContinue = sc.nextInt();
-			if (isContinue == 1 || isContinue == 2) {
+			if (isContinue == Cons.CONTINUE || isContinue == Cons.CLOSE) {
 				break;
 			} else {
 				OutputClass.errMsg();
@@ -112,5 +156,17 @@ public class InputClass {
 		}
 		
 		return isContinue;
+	}
+	
+	/**
+	 * @return 1 = continue program, 2 = end
+	 */
+	public int programContinue() {
+		int isExit = 0;
+		System.out.printf("계속 진행(1: 새로운 주문, 2: 프로그램 종료) : ");
+		sc = new Scanner(System.in);
+		isExit = sc.nextInt();
+		
+		return isExit;
 	}
 }

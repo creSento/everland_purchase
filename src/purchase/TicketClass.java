@@ -4,7 +4,41 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * @author kopo19
+ * Calculate variables that required in process
+ */
 public class TicketClass {
+	private InputClass data;
+	private int age;
+	private int rawPrice;
+	private int disPrice;
+	private int resultPrice;
+	
+	public TicketClass(InputClass data) {
+		this.data = data;
+		this.rawPrice = 0;
+		this.disPrice = 0;
+		this.resultPrice = 0;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public int getResultPrice() {
+		return resultPrice;
+	}
+	
+	/**
+	 * Run process method
+	 */
+	public void runTicket() {
+		age = customerAge(data.getIdNumber());
+		rawPrice = calRawPrice(age, data.getTicket());
+		disPrice = calDiscount(rawPrice, data.getDiscountType());
+		resultPrice = calTotalPrice(disPrice, data.getOrderCount());
+	}
 	
 	/**
 	 * check customer's age
@@ -20,9 +54,9 @@ public class TicketClass {
 		int cusYear = Integer.parseInt(idNumber.substring(0, 2));
 		int cusMonth = Integer.parseInt(idNumber.substring(2, 4));
 		int cusDay = Integer.parseInt(idNumber.substring(4, 6));
-		if (idNumber.charAt(6) == '1' || idNumber.charAt(6) == '2') {	// 1900
+		if (idNumber.charAt(6) == '1' || idNumber.charAt(6) == '2') {	// 20th century
 			cusYear += 1900;
-		} else if (idNumber.charAt(6) == '3' || idNumber.charAt(6) == '4') {	// 2000
+		} else if (idNumber.charAt(6) == '3' || idNumber.charAt(6) == '4') {	// 21th century
 			cusYear += 2000;
 		}
 		age = thisYear - cusYear;
@@ -35,19 +69,19 @@ public class TicketClass {
 	
 	/**
 	 * find age group
-	 * @return ageGroup in ConstP value
+	 * @return ageGroup in Cons value
 	 */
-	public int ageGroup(int age) {
-		if (age < ConstP.MIN_CHILD) {
-			return ConstP.BABY;
-		} else if (age >= ConstP.MIN_CHILD && age <= ConstP.MAX_CHILD) {
-			return ConstP.CHILD;
-		} else if (age >= ConstP.MIN_TEEN && age <= ConstP.MAX_TEEN) {
-			return ConstP.TEEN;
-		} else if (age >= ConstP.MIN_ADULT && age <= ConstP.MAX_ADULT) {
-			return ConstP.ADULT;
+	public static int ageGroup(int age) {
+		if (age < Cons.MIN_CHILD) {
+			return Cons.BABY;
+		} else if (age >= Cons.MIN_CHILD && age <= Cons.MAX_CHILD) {
+			return Cons.CHILD;
+		} else if (age >= Cons.MIN_TEEN && age <= Cons.MAX_TEEN) {
+			return Cons.TEEN;
+		} else if (age >= Cons.MIN_ADULT && age <= Cons.MAX_ADULT) {
+			return Cons.ADULT;
 		} else {
-			return ConstP.OLD;
+			return Cons.OLD;
 		}
 	}
 	
@@ -57,31 +91,31 @@ public class TicketClass {
 	 */
 	public int calRawPrice(int age, int ticket) {
 		int rawPrice = 0;
-		if (ageGroup(age) == ConstP.BABY) {
-			rawPrice = ConstP.BABY_PRICE;
-		} else if (ageGroup(age) == ConstP.CHILD) {
-			if (ticket == 1) {
-				rawPrice = ConstP.CHILD_DAY_PRICE;
+		if (ageGroup(age) == Cons.BABY) {
+			rawPrice = Cons.BABY_PRICE;
+		} else if (ageGroup(age) == Cons.CHILD) {
+			if (ticket == Cons.DAY) {
+				rawPrice = Cons.CHILD_DAY_PRICE;
 			} else {
-				rawPrice = ConstP.CHILD_NIGHT_PRICE;
+				rawPrice = Cons.CHILD_NIGHT_PRICE;
 			}
-		} else if (ageGroup(age) == ConstP.TEEN) {
-			if (ticket == 1) {
-				rawPrice = ConstP.TEEN_DAY_PRICE;
+		} else if (ageGroup(age) == Cons.TEEN) {
+			if (ticket == Cons.DAY) {
+				rawPrice = Cons.TEEN_DAY_PRICE;
 			} else {
-				rawPrice = ConstP.TEEN_NIGHT_PRICE;
+				rawPrice = Cons.TEEN_NIGHT_PRICE;
 			}
-		} else if (ageGroup(age) == ConstP.ADULT) {
-			if (ticket == 1) {
-				rawPrice = ConstP.ADULT_DAY_PRICE;
+		} else if (ageGroup(age) == Cons.ADULT) {
+			if (ticket == Cons.DAY) {
+				rawPrice = Cons.ADULT_DAY_PRICE;
 			} else {
-				rawPrice = ConstP.ADULT_NIGHT_PRICE;
+				rawPrice = Cons.ADULT_NIGHT_PRICE;
 			}
 		} else {
-			if (ticket == 1) {
-				rawPrice = ConstP.OLD_DAY_PRICE;
+			if (ticket == Cons.DAY) {
+				rawPrice = Cons.OLD_DAY_PRICE;
 			} else {
-				rawPrice = ConstP.OLD_NIGHT_PRICE;
+				rawPrice = Cons.OLD_NIGHT_PRICE;
 			}
 		}
 		return rawPrice;
@@ -94,17 +128,17 @@ public class TicketClass {
 	public int calDiscount(int rawPrice, int discountType) {
 		double disPrice = 0;
 		switch (discountType) {
-		case 2:
-			disPrice = rawPrice * ConstP.DISABLE_DISCOUNT_RATE;
+		case Cons.DISCOUNT_DISABLE:
+			disPrice = rawPrice * Cons.DISABLE_DISCOUNT_RATE;
 			break;
-		case 3:
-			disPrice = rawPrice * ConstP.MERIT_DISCOUNT_RATE;
+		case Cons.DISCOUNT_MERIT:
+			disPrice = rawPrice * Cons.MERIT_DISCOUNT_RATE;
 			break;
-		case 4:
-			disPrice = rawPrice * ConstP.MULTICHILD_DISCOUNT_RATE;
+		case Cons.DISCOUNT_MULTICHILD:
+			disPrice = rawPrice * Cons.MULTICHILD_DISCOUNT_RATE;
 			break;
-		case 5:
-			disPrice = rawPrice * ConstP.PREGNANT_DISCOUNT_RATE;
+		case Cons.DISCOUNT_PREGNANT:
+			disPrice = rawPrice * Cons.PREGNANT_DISCOUNT_RATE;
 			break;
 		default:
 			disPrice = rawPrice;
@@ -124,12 +158,7 @@ public class TicketClass {
 	/**
 	 * save one order data to array list
 	 */
-	public void saveOrderList(int ticket, int age, int orderCount, int resultPrice, 
-			int discountType, ArrayList<Customer> orderList) {
-		Date today = new Date(); 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String date = sdf.format(today);
-		Customer cus = new Customer(date, ticket, ageGroup(age), orderCount, resultPrice, discountType);
-		orderList.add(cus);
+	public void saveOrderList(Customer customer, ArrayList<Customer> orderList) {
+		orderList.add(customer);
 	}
 }
