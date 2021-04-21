@@ -51,12 +51,19 @@ public class DBWriteClasas {
 	public void writeTicketFile() throws Exception {
 		ResultSet byTypeAge = stmt.executeQuery("SELECT age_group, "
 				+ "SUM(CASE WHEN type = 1 THEN amount ELSE 0 END), "
-				+ "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) "
+				+ "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END),"
+				+ "SUM(CASE WHEN type = 1 THEN price ELSE 0 END),"
+				+ "SUM(CASE WHEN type = 2 THEN price ELSE 0 END)"
 				+ "FROM report GROUP BY age_group ORDER BY age_group");
 		bw = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(ticketTypeFile + processDate(), true), "utf-8"));
-		bw.write("구분,주간권,야간권\n"); // head line
 		String ageGroup = "";
+		int dayCount = 0;
+		int nightCount = 0; 
+		int daySales = 0;
+		int nightSales = 0;
+		
+		bw.write("구분,주간권,야간권\n"); // head line
 		while (byTypeAge.next()) {
 			if (byTypeAge.getInt(1) == Cons.BABY) {
 				ageGroup = "유아";
@@ -69,37 +76,18 @@ public class DBWriteClasas {
 			} else {
 				ageGroup = "노인";
 			}
+			dayCount += byTypeAge.getInt(2);
+			daySales += byTypeAge.getInt(4);
+			nightCount += byTypeAge.getInt(3);
+			nightSales += byTypeAge.getInt(5);
 			bw.append(String.format("%s,%d,%d\n", ageGroup, byTypeAge.getInt(2), byTypeAge.getInt(3)));
 		}
+		bw.append(String.format("합계,%d,%d\n", dayCount, nightCount));
+		bw.append(String.format("매출,%d,%d\n", daySales, nightSales));
 		bw.flush();
 		bw.close();
 	}
 	
-	public void writeTicketTotal() throws Exception {
-		ResultSet byType = stmt.executeQuery("SELECT type, SUM(amount), SUM(price)"
-				+ "FROM report GROUP BY type ORDER BY type");
-		bw = new BufferedWriter(
-				new OutputStreamWriter(new FileOutputStream(ticketTypeFile + processDate(), true), "utf-8"));
-		int dayCount = 0;
-		int nightCount = 0; 
-		int daySales = 0;
-		int nightSales = 0;
-		while (byType.next()) {
-			if (byType.getInt(1) == 1) {
-				dayCount += byType.getInt(2);
-				daySales += byType.getInt(3);
-			} else {
-				nightCount += byType.getInt(2);
-				nightSales += byType.getInt(3);
-			}
-		}
-		bw.append(String.format("합계,%d,%d\n", dayCount, nightCount));
-		bw.append(String.format("매출,%d,%d\n", daySales, nightSales));
-		System.out.println("Write TicketFile" + processDate());
-		bw.flush();
-		bw.close();
-	}
-
 	/**
 	 * Save the result to file : sales by discount type
 	 * QUERY : SELECT discount, count(*), SUM(amount) FROM report GROUP BY discount ORDER BY discount
