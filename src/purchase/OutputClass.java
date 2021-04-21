@@ -18,6 +18,14 @@ import java.util.ArrayList;
 public class OutputClass {
 	private static BufferedWriter bw;
 	private static String fileName = "report.csv";	// save order list to this file
+	private static Connection conn;
+	private static Statement stmt;
+	
+	public OutputClass() throws Exception {
+		Class.forName(Cons.JDBC_DRIVER);
+		conn = DriverManager.getConnection(Cons.DB_URL, Cons.DB_ID, Cons.DB_PW);
+		stmt = conn.createStatement();
+	}
 	
 	/**
 	 * Print wrong input message
@@ -74,12 +82,14 @@ public class OutputClass {
 		}
 	}
 	
+	/**
+	 * Save data to data base directly
+	 * @param customer - object that have order data
+	 * @throws Exception
+	 */
 	private static void writeDB(Customer customer) throws Exception {
-		Class.forName(Cons.JDBC_DRIVER);
-		Connection conn = DriverManager.getConnection(Cons.DB_URL, Cons.DB_ID, Cons.DB_PW);
-		Statement stmt = conn.createStatement();
 		stmt.execute("INSERT INTO report VALUES ("
-				+ customer.getDate() + ","
+				+ "DATE_FORMAT(now(), '%Y%m%d')" 
 				+ customer.getTicketType() + ","
 				+ customer.getAge() + ","
 				+ customer.getOrderCount() + ","
