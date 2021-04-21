@@ -68,5 +68,10 @@ public class Cons {
 	// array index
 	public static final int TOTAL_COUNT = 0;
 	public static final int TOTAL_SALES = 6;
-
+	
+	// data base
+	public static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; 
+	public static final String DB_URL = "jdbc:mysql://localhost:3306/test"; 
+	public static final String DB_ID = "root"; 
+	public static final String DB_PW = "qwerty"; 
 }

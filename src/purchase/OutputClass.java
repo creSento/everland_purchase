@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -32,8 +36,9 @@ public class OutputClass {
 	
 	/**
 	 * Print all order list after process completed once
+	 * @throws Exception 
 	 */
-	public static void prtOrderList(int totalPrice, ArrayList<Customer> orderList) throws IOException {
+	public static void prtOrderList(int totalPrice, ArrayList<Customer> orderList) throws Exception {
 		System.out.printf("티켓 발권을 종료합니다. 감사합니다.\n\n");
 		System.out.printf("========================= EverLand =========================\n");
 		Customer cus = null;
@@ -46,6 +51,7 @@ public class OutputClass {
 			System.out.printf("%8d원\t", cus.getPrice());
 			System.out.printf("%s\n", cus.getDiscountTypeStr());
 			writeFile(cus);
+			writeDB(cus);
 		}
 		System.out.printf("\n입장료 총액은 %d원 입니다.\n", totalPrice);
 		System.out.printf("============================================================\n\n");
@@ -66,5 +72,21 @@ public class OutputClass {
 			bw.write("날짜,권종,연령구분,수량,가격,우대사항\n");
 			bw.close();
 		}
+	}
+	
+	private static void writeDB(Customer customer) throws Exception {
+		Class.forName(Cons.JDBC_DRIVER);
+		Connection conn = DriverManager.getConnection(Cons.DB_URL, Cons.DB_ID, Cons.DB_PW);
+		Statement stmt = conn.createStatement();
+		stmt.execute("INSERT INTO report VALUES ("
+				+ customer.getDate() + ","
+				+ customer.getTicketType() + ","
+				+ customer.getAge() + ","
+				+ customer.getOrderCount() + ","
+				+ customer.getPrice() + ","
+				+ customer.getDiscountType() + ");"
+				);
+		stmt.close();
+		conn.close();
 	}
 }

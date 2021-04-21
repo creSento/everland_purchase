@@ -1,12 +1,10 @@
 package purchase;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TicketMain {
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		int totalPrice = 0;
 		int isContinue = 0;
 		int isExit = 0;
