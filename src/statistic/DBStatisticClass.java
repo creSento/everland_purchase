@@ -8,11 +8,19 @@ import java.text.DecimalFormat;
 
 import purchase.Cons;
 
+/**
+ * @author kopo19
+ * Do statistic work with DB table 
+ */
 public class DBStatisticClass {
 	private static Connection conn;
 	private static Statement stmt;
 	private static DecimalFormat df;
 	
+	/**
+	 * Initialize Object - Set JDBC
+	 * @throws Exception
+	 */
 	public DBStatisticClass() throws Exception {
 		Class.forName(Cons.JDBC_DRIVER);
 		conn = DriverManager.getConnection(Cons.DB_URL, Cons.DB_ID, Cons.DB_PW);
@@ -20,6 +28,10 @@ public class DBStatisticClass {
 		df = new DecimalFormat("###,###,###,###");
 	}
 	
+	/**
+	 * Get All data from DB
+	 * @throws Exception
+	 */
 	public void salesAll() throws Exception {
 		ResultSet list = stmt.executeQuery("select * from report");
 		System.out.printf("%6s\t%s\t%s\t%s\t%s\t%s\n", 
@@ -35,6 +47,10 @@ public class DBStatisticClass {
 		}
 	}
 	
+	/**
+	 * Get data Group by date
+	 * @throws Exception
+	 */
 	public void dateSales() throws Exception {
 		stmt.clearBatch();
 		ResultSet byDate = stmt.executeQuery("SELECT date, SUM(amount), SUM(price) "
@@ -49,11 +65,17 @@ public class DBStatisticClass {
 		System.out.printf("=========================================================\n");
 	}
 	
+	/**
+	 * Get data Group by type
+	 * @throws Exception
+	 */
 	public void typeSales() throws Exception {
 		stmt.clearBatch();
 		ResultSet byTypeAge = stmt.executeQuery("SELECT age_group, "
 				+ "SUM(CASE WHEN type = 1 THEN amount ELSE 0 END), "
-				+ "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) "
+				+ "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END),"
+				+ "SUM(CASE WHEN type = 1 THEN price ELSE 0 END),"
+				+ "SUM(CASE WHEN type = 2 THEN price ELSE 0 END)"
 				+ "FROM report GROUP BY age_group ORDER BY age_group");
 		System.out.printf("\n==================== 권종 별 판매현황 ===================\n");
 		System.out.printf("구분\t\t주간권\t야간권\n");
@@ -75,8 +97,17 @@ public class DBStatisticClass {
 		System.out.printf("=========================================================\n");
 	}
 	
+	/**
+	 * Print data in console
+	 * @param ResultSet - made by Statement
+	 * @throws Exception
+	 */
 	private void prtType(ResultSet result) throws Exception {
 		String ageGroup = "";
+		int dayCount = 0;
+		int nightCount = 0; 
+		int daySales = 0;
+		int nightSales = 0;
 		while (result.next()) {
 			if (result.getInt(1) == Cons.BABY) {
 				ageGroup = "유아";
@@ -89,10 +120,20 @@ public class DBStatisticClass {
 			} else {
 				ageGroup = "노인";
 			}
+			dayCount += result.getInt(2);
+			daySales += result.getInt(4);
+			nightCount += result.getInt(3);
+			nightSales += result.getInt(5);
 			System.out.printf("%-4s\t\t%4d매\t%4d매\n", ageGroup, result.getInt(2), result.getInt(3));
 		}
+		System.out.printf("주간권 : 총 %d매\t%s원\n", dayCount, df.format(daySales));
+		System.out.printf("야간권 : 총 %d매\t%s원\n", nightCount, df.format(nightSales));
 	}
 	
+	/**
+	 * Get data Group by discount type
+	 * @throws Exception
+	 */
 	public void disSales() throws Exception {
 		stmt.clearBatch();
 		ResultSet byDis = stmt.executeQuery("SELECT discount, SUM(amount) FROM report GROUP BY discount ORDER BY discount");
@@ -102,6 +143,12 @@ public class DBStatisticClass {
 		System.out.printf("=========================================================\n");
 	}
 	
+	/**
+	 * Print data in console and calculate total amount
+	 * @param ResultSet - made by Statement
+	 * @return total amount
+	 * @throws Exception
+	 */
 	private int prtDiscount(ResultSet result) throws Exception {
 		String disType = "";
 		int total = 0;
