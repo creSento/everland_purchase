@@ -1,12 +1,11 @@
 package statistic;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class StatisticMain {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		ReadFileClass read = new ReadFileClass();
 		ArrayList<OrderLine> list = read.readAll();	// array list that have file data
 		PrintFileClass print = new PrintFileClass(list);
